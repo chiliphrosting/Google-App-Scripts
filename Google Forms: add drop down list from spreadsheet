@@ -1,0 +1,27 @@
+function listItems( ) {
+  var ss    = SpreadsheetApp.openByUrl("theUrlOfTheSpreadsheet");
+  var sheet = ss.getSheetByName("theSheetName");
+  var lr    = sheet.getLastRow();
+
+ var valItems = sheet.getRange(row, col, lr, col).getValues()
+
+Logger.log("items list passed through")
+
+  return valItems
+};
+
+function toFormfromSheet() {
+
+  /**from the spreadsheet***/
+  var lr = listItems().length;
+  var values = listItems();
+
+  var formId = 'getTheFormId';
+  var form = FormApp.openById(formId);
+
+  var itemId = form.getItems()[0].getId().toString(); 
+  var item = form.getItemById(itemId)
+ 
+  item.asListItem().setChoiceValues(values);
+
+}
